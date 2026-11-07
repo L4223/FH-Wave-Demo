@@ -14,9 +14,7 @@
 ## Auschecken des Quellcodes
 
 ## Login
-Zum testen der App gibt es einen beispiel Account:   
-E-Mail: ``Jana.Finke@student.fh-kiel.de``
-Passwort: ``passwort123``
+Die Web-Demo startet ohne Anmeldung mit Beispieldaten (siehe README im Hauptordner).
 
 ### Voraussetzungen
 
