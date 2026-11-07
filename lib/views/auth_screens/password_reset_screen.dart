@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +6,7 @@ import '../../controllers/dark_mode_controller.dart';
 
 import '../widgets/buttons/primary_button.dart';
 import '../widgets/buttons/secondary_button.dart';
+import 'package:fh_wave/services/backend.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({Key? key}) : super(key: key);
@@ -162,7 +162,7 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   void resetPassword() async {
     try {
-      await FirebaseAuth.instance
+      await Backend.auth
           .sendPasswordResetEmail(email: emailController);
       showSuccessDialog();
     } catch (e) {

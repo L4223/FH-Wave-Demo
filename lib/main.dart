@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'controllers/user_controller.dart';
-import 'firebase_options.dart';
+import 'services/backend.dart';
 import 'splash_screen.dart';
 
 dynamic screenSize;
@@ -13,8 +12,8 @@ User? user = userController.currentUser;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      name: "FH-Wave", options: DefaultFirebaseOptions.currentPlatform);
+  // Real Firebase, or in-memory demo data (default on web), see Backend.
+  await Backend.init();
 
   runApp(const MyApp());
 }

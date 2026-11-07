@@ -12,6 +12,7 @@ import '../controllers/dark_mode_controller.dart';
 import '../controllers/group_controller.dart';
 import '../controllers/user_controller.dart';
 import 'widgets/group_widgets/appbar.dart';
+import 'package:fh_wave/services/backend.dart';
 
 GroupController groupController = GroupController();
 UserController userController = UserController();
@@ -63,7 +64,7 @@ class _GroupCalendarScreenState extends State<GroupCalendarScreen> {
 
   Future<void> fetchMeetings(String groupId) async {
     try {
-      final querySnapshot = await FirebaseFirestore.instance
+      final querySnapshot = await Backend.firestore
           .collection('groups')
           .doc(groupId)
           .collection('appointments')

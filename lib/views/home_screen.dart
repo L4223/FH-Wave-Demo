@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +11,7 @@ import 'profile_screen.dart';
 import 'quick_links_screen.dart';
 import 'widgets/group_widgets/popups.dart';
 import 'widgets/toggle_button.dart';
+import 'package:fh_wave/services/backend.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     //Aktuelle User-date aus Firebase
-    var currentUser = FirebaseAuth.instance.currentUser;
+    var currentUser = Backend.auth.currentUser;
     var username = currentUser?.displayName;
 
     return Consumer<DarkModeController>(builder: (context, controller, _) {

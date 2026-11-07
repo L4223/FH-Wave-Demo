@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/appointment_controller.dart';
 import 'group_screens/request_screen.dart';
+import 'package:fh_wave/services/backend.dart';
 
 class RequestAppointmentScreen extends StatefulWidget {
   const RequestAppointmentScreen({super.key});
@@ -28,7 +28,7 @@ class RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
   }
 
   Future<void> _loadAppointments() async {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = Backend.auth.currentUser;
     if (user != null) {
       final appointments = await _controller.getUserAppointments(user.uid);
       setState(() {
@@ -54,7 +54,7 @@ class RequestAppointmentScreenState extends State<RequestAppointmentScreen> {
   }
 
   void _requestAppointment() async {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = Backend.auth.currentUser;
     if (user != null) {
       final groupIds = await _controller.getUserGroupIds(user.uid);
       final date = selectedDate.toString();

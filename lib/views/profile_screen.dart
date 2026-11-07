@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +7,7 @@ import '../controllers/user_controller.dart';
 import 'auth_screens/welcome_screen.dart';
 import 'widgets/buttons/primary_button.dart';
 import 'widgets/buttons/secondary_button.dart';
+import 'package:fh_wave/services/backend.dart';
 
 //final ProfileScreenController _controller = ProfileScreenController();
 
@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var user = FirebaseAuth.instance.currentUser;
+    var user = Backend.auth.currentUser;
     var username = user?.displayName;
     var userEmail = user?.email;
     return Consumer<DarkModeController>(builder: (context, controller, _) {

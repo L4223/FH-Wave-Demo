@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'user_controller.dart';
+import 'package:fh_wave/services/backend.dart';
 
 class MyCalendarController {
   Future<void> saveSelectedDays(List<DateTime> selectedDays) async {
@@ -11,7 +12,7 @@ class MyCalendarController {
       if (currentUser != null) {
         final userId = currentUser.uid;
         final userRef =
-            FirebaseFirestore.instance.collection('users').doc(userId);
+            Backend.firestore.collection('users').doc(userId);
 
         await userRef.set({
           'availability':
@@ -30,7 +31,7 @@ class MyCalendarController {
       if (currentUser != null) {
         final userId = currentUser.uid;
         final userRef =
-            FirebaseFirestore.instance.collection('users').doc(userId);
+            Backend.firestore.collection('users').doc(userId);
 
         final doc = await userRef.get();
         if (doc.exists) {
@@ -51,7 +52,7 @@ class MyCalendarController {
   Future<void> createNewAppointment(String groupId, String title,
       String desc, DateTime startTime, DateTime endTime, Color color,
       bool isAllDay) async {
-    var firestore = FirebaseFirestore.instance;
+    var firestore = Backend.firestore;
     try {
       // Termin in der Gruppe erstellen
       final groupRef = firestore.collection('groups').doc(groupId);

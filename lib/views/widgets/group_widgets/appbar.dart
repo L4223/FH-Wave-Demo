@@ -32,10 +32,17 @@ class TransparentAppbar extends StatelessWidget {
               },
             ),
             const SizedBox(width: 12),
-            Text(
-              heading,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
+            // Long group names are shortened instead of running off screen.
+            Expanded(
+              child: Text(
+                heading,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style:
+                    const TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
+              ),
             ),
+            const SizedBox(width: 22),
           ],
         ),
       ],

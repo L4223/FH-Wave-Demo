@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../views/group_calendar_screen.dart';
+import 'package:fh_wave/services/backend.dart';
 
 class AppointmentController {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = Backend.firestore;
 
   Future<void> createAppointment(String groupId, Meeting meeting) async {
     try {
-      await FirebaseFirestore.instance
+      await Backend.firestore
           .collection('groups')
           .doc(groupId)
           .collection('appointments')

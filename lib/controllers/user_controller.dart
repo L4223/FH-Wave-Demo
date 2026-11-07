@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import '../app_colors.dart';
 import '../views/home_screen.dart';
 import '../views/widgets/buttons/primary_button.dart';
+import 'package:fh_wave/services/backend.dart';
 
 class UserController {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = Backend.auth;
   User? get currentUser => _auth.currentUser;
   Timer? emailConfirmationTimer;
 
@@ -165,7 +166,7 @@ class UserController {
       );
       var user = userCredential.user;
       //die eingegebne Name beim Regstrieren als DisplayName speichern!
-      await FirebaseAuth.instance.currentUser?.updateDisplayName(username);
+      await Backend.auth.currentUser?.updateDisplayName(username);
       await user?.reload();
       if (user != null) {
         await user.sendEmailVerification();
@@ -300,14 +301,14 @@ class UserController {
 
   // Future<void> resetPassword(String email) async {
   //   try {
-  //     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  //     await Backend.auth.sendPasswordResetEmail(email: email);
   //   } catch (e) {
   //   }
   // }
 
   //Authentifizierungsüberprüfung
   Future<bool> checkAuth() async {
-    var user = FirebaseAuth.instance.currentUser;
+    var user = Backend.auth.currentUser;
     if (user != null && user.emailVerified) {
       return true;
     } else {
@@ -316,7 +317,7 @@ class UserController {
   }
 
   Future<void> setupUserDb(String userName, String uid, String userMail) async {
-    var firestore = FirebaseFirestore.instance;
+    var firestore = Backend.firestore;
 
     try {
       final groupRef = firestore.collection('users').doc(uid);
@@ -347,7 +348,7 @@ class UserController {
   //BestätigungslinkStatus wird nach der Regstrierung all 5 second kontroliert
   void updateLinkStatus(BuildContext context) {
     Timer.periodic(const Duration(seconds: 5), (timer) {
-      final user = FirebaseAuth.instance.currentUser;
+      final user = Backend.auth.currentUser;
       if (user != null) {
         //print('Linksstatus wird gecheckt');
         user.reload().then((_) {

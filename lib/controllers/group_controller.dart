@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import '../views/group_calendar_screen.dart';
 
 import 'user_controller.dart';
+import 'package:fh_wave/services/backend.dart';
 
-FirebaseFirestore firestore = FirebaseFirestore.instance;
+FirebaseFirestore firestore = Backend.firestore;
 
 class GroupController {
   Future<String> createGroup(String groupName, String creatorId) async {
@@ -421,7 +422,7 @@ class GroupController {
 
   Future<String> checkMembersExist(List<String> addedMembers) async {
     final CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
+        Backend.firestore.collection('users');
     var name = "";
 
     for (var member in addedMembers) {
@@ -443,7 +444,7 @@ class GroupController {
       var uid = await getUserIdFromUsername(userName);
 
       final DocumentSnapshot userSnapshot =
-          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+          await Backend.firestore.collection('users').doc(uid).get();
 
       if (userSnapshot.exists) {
         final List<dynamic> groupRequests = userSnapshot.get('group_requests');
